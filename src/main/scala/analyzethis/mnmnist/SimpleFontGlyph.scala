@@ -22,13 +22,24 @@ class SimpleFontGlyph(override val c: Char,
     // Pad and draw over-sized character.
     val padF = 4
     val overScaleF = 2
-    val canvas = createCanvas((padF*d.getWidth).toInt, (padF*d.getHeight).toInt)
-    val g = canvas.getGraphics.asInstanceOf[Graphics2D]
-    g.setFont(font.deriveFont(overScaleF*d.getHeight.toFloat))
+    val canvas = createCanvas((padF * d.getWidth).toInt, (padF * d.getHeight).toInt)
+    val g = canvas.getGraphics
+    g.setFont(font.deriveFont(overScaleF * d.getHeight.toFloat))
     g.setColor(Color.BLACK)
-    g.drawString(c.toString, 0, (overScaleF*d.getHeight).toInt)
+    g.drawString(c.toString, 0, (overScaleF * d.getHeight).toInt)
 
-    // Clip and scale to fit.
+    clipAndScale(canvas, d)
+  }
+
+}
+
+/**
+  * Utility classes exposed for testing only.
+  */
+object SimpleFontGlyph {
+  private final val GLYPH_LIMIT = 65535 // white
+
+  private [mnmnist] def clipAndScale(canvas: BufferedImage, d: Dimension): BufferedImage = {
     val (minY, maxY) = getYBounds(canvas)
     val (minX, maxX) = getXBounds(canvas)
     val usedHeight = maxY - minY
@@ -44,14 +55,6 @@ class SimpleFontGlyph(override val c: Char,
       drawImage(clippedAndScaled, 0, 0, null)
     result
   }
-
-}
-
-/**
-  * Utility classes exposed for testing only.
-  */
-object SimpleFontGlyph {
-  private final val GLYPH_LIMIT = 65535 // white
 
   private [mnmnist] def createCanvas(width: Int, height: Int): BufferedImage = {
     val image = new BufferedImage(width, height, BufferedImage.TYPE_USHORT_GRAY)

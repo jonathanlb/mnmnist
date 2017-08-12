@@ -12,6 +12,7 @@ import org.junit.Test
   * Created by bredin@acm.org on 8/10/2017.
   */
 class SimpleFontGlyphTest {
+  import SimpleFontGlyphTest._
 
   @Test
   def demoGetXBounds(): Unit = {
@@ -46,7 +47,7 @@ class SimpleFontGlyphTest {
   /**
     * Diagnostic to view a sample glyph.
     * mvn -Dtest=analyzethis.mnmnist.SimpleFontGlyphTest#renderCharacter \
-    *  -DtrimStackTrace=false test
+    * -DtrimStackTrace=false test
     */
   @Test
   def renderCharacter(): Unit = {
@@ -63,12 +64,15 @@ class SimpleFontGlyphTest {
     assertEquals((0, 49), SimpleFontGlyph.getXBounds(image))
     assertEquals((0, 49), SimpleFontGlyph.getYBounds(image))
   }
+}
 
+object SimpleFontGlyphTest {
   /**
     * Debugging tool to display an image.
+    *
     * @return the viewing component
     */
-  private def showImage(image: Image): JFrame = {
+  private [mnmnist] def showImage(image: Image): JFrame = {
     val frame = new JFrame()
     frame.setSize(100, 150)
     frame.setVisible(true)
