@@ -12,13 +12,21 @@ class SimpleFontGlyph(override val c: Char,
 {
   import SimpleFontGlyph._
 
+  /**
+    * Provide a scaled and clipped image of the character glyph.
+    * a) Draw an over-sized character on an even larger canvas.
+    * b) Clip the area drawn.
+    * c) Scale down.
+    */
   override def getImage(d: Dimension): BufferedImage = {
-    // Pad and draw character. Clip later.
-    val canvas = createCanvas((1.5*d.getWidth).toInt, (1.5*d.getHeight).toInt)
+    // Pad and draw over-sized character.
+    val padF = 4
+    val overScaleF = 2
+    val canvas = createCanvas((padF*d.getWidth).toInt, (padF*d.getHeight).toInt)
     val g = canvas.getGraphics.asInstanceOf[Graphics2D]
-    g.setFont(font.deriveFont(d.getHeight.toFloat))
+    g.setFont(font.deriveFont(overScaleF*d.getHeight.toFloat))
     g.setColor(Color.BLACK)
-    g.drawString(c.toString, 0, d.getHeight.toInt)
+    g.drawString(c.toString, 0, (overScaleF*d.getHeight).toInt)
 
     // Clip and scale to fit.
     val (minY, maxY) = getYBounds(canvas)
