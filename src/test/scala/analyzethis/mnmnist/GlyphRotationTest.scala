@@ -1,6 +1,5 @@
 package analyzethis.mnmnist
 
-import java.awt.font.TextAttribute
 import java.awt.{Dimension, Font}
 
 import org.junit.Assert._
@@ -18,13 +17,8 @@ class GlyphRotationTest {
   def renderCharacter(): Unit = {
     import math.Pi
     val d = new Dimension(50, 50)
-    val attrib = new Font(Font.SERIF, Font.PLAIN, 12).
-      getAttributes.
-      asInstanceOf[java.util.Map[TextAttribute, Any]] // step over Java generic wildcard
-    attrib.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON)
-    val font = new Font(attrib)
-    val f = new GlyphRotation(2*Pi/18)
-    val g = f(new SimpleFontGlyph('q', font))
+    val font = FontUtil.strike()
+    val g = RotatedGlyph(2*Pi/18, new SimpleFontGlyph('q', font))
     val image = g.getImage(d)
 
     // comment-out sleep as necessary.

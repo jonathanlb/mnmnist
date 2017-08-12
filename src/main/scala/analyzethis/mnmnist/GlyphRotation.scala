@@ -5,7 +5,7 @@ import java.awt.geom.AffineTransform
 import java.awt.image.{AffineTransformOp, BufferedImage}
 
 /**
-  * A factory to rotate glyphs.
+  * Composable glyph rotations.
   *
   * Created by bredin@acm.org on 8/12/2017.
   */
@@ -29,3 +29,17 @@ class GlyphRotation(theta: Double)
     SimpleFontGlyph.clipAndScale(canvas, d)
   }
 }
+
+/**
+  * A factory to rotate glyphs.
+  */
+ object RotatedGlyph {
+   def apply(theta: Double, g: Glyph): Glyph =
+     new Glyph {
+       override val c: Char = g.c
+       override def getImage(d: Dimension): BufferedImage = {
+         val f = new GlyphRotation(theta)
+         f(g).getImage(d)
+       }
+     }
+ }

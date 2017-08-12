@@ -4,7 +4,7 @@ import java.awt.Dimension
 import java.awt.image.BufferedImage
 
 /**
-  * A factory structure to create altered glyphs.
+  * A factory structure to alter glyphs.
   *
   * Created by bredin@acm.org on 8/12/2017.
   */
