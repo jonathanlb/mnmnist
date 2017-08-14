@@ -20,10 +20,21 @@ object FontUtil {
     new Font(attributes)
   }
 
-  def getInstalledFontNames: Seq[String] =
+  def getInstalledFontNames: Iterable[String] =
     GraphicsEnvironment.getLocalGraphicsEnvironment.
-      getAvailableFontFamilyNames.
-      toSeq
+      getAvailableFontFamilyNames
+
+  def isBold(font: Font): Boolean =
+    TextAttribute.WEIGHT_BOLD == getAttributes(font).get(TextAttribute.WEIGHT)
+
+  def isItalic(font: Font): Boolean =
+    TextAttribute.POSTURE_OBLIQUE == getAttributes(font).get(TextAttribute.POSTURE)
+
+  def isStrike(font: Font): Boolean =
+    TextAttribute.STRIKETHROUGH_ON == getAttributes(font).get(TextAttribute.STRIKETHROUGH)
+
+  def isUnderline(font: Font): Boolean =
+    TextAttribute.UNDERLINE_ON == getAttributes(font).get(TextAttribute.UNDERLINE)
 
   /** Create a new font from the source, adding italic. */
   def italic(f: Font = plainSerif): Font = {

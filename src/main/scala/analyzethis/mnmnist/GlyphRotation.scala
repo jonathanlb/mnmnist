@@ -28,6 +28,7 @@ class GlyphRotation(theta: Double)
 
     SimpleFontGlyph.clipAndScale(canvas, d)
   }
+
 }
 
 /**
@@ -41,5 +42,7 @@ class GlyphRotation(theta: Double)
          val f = new GlyphRotation(theta)
          f(g).getImage(d)
        }
+       override def toString: String =
+         s"$g-r" + f"$theta%1.4f"
      }
  }

@@ -31,6 +31,14 @@ class SimpleFontGlyph(override val c: Char,
     clipAndScale(canvas, d)
   }
 
+  override def toString: String = {
+    val bold = if (FontUtil.isBold(font)) "-b" else ""
+    val italic = if (FontUtil.isItalic(font)) "-i" else ""
+    val strike = if (FontUtil.isStrike(font)) "-s" else ""
+    val uline = if (FontUtil.isUnderline(font)) "-u" else ""
+    s"$c-${font.getFontName().replaceAll(" ", "_")}$bold$italic$strike$uline"
+  }
+
 }
 
 /**

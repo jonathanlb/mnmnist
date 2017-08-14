@@ -1,6 +1,6 @@
 package analyzethis.mnmnist
 
-import java.awt.{Dimension, Font}
+import java.awt.Dimension
 
 import org.junit.Assert._
 import org.junit.Test
