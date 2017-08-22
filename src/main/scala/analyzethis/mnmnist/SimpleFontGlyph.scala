@@ -59,17 +59,24 @@ object SimpleFontGlyph {
       getScaledInstance(d.getWidth.toInt, d.getHeight.toInt, scaleMode)
 
     val result = createCanvas(d.getWidth.toInt, d.getHeight.toInt)
-    result.getGraphics.asInstanceOf[Graphics2D].
+    result.getGraphics.
       drawImage(clippedAndScaled, 0, 0, null)
     result
   }
 
   private [mnmnist] def createCanvas(width: Int, height: Int): BufferedImage = {
     val image = new BufferedImage(width, height, BufferedImage.TYPE_USHORT_GRAY)
-    val g = image.getGraphics.asInstanceOf[Graphics2D]
+    val g = image.getGraphics
     g.setColor(Color.WHITE)
     g.fillRect(0, 0, width, height)
     image
+  }
+
+  private [mnmnist] def copyImage(image: BufferedImage, d: Dimension): BufferedImage = {
+    val result = SimpleFontGlyph.createCanvas(d.getWidth.toInt, d.getHeight.toInt)
+    result.getGraphics.
+      drawImage(image, 0, 0, d.getWidth.toInt, d.getHeight.toInt, null)
+    result
   }
 
   private [mnmnist] def getXBounds(image: BufferedImage): (Int, Int) = {

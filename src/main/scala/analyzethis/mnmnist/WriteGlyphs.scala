@@ -26,8 +26,8 @@ object WriteGlyphs {
                     stop: Char = 'j')
 
   def createGlyphs(config: Config): Iterable[Glyph] = {
-    // new ExperimentalGlyphSampler(config)
     new DefaultGlyphSampler(config)
+    // new ExperimentalGlyphSampler(config)
   }
 
   def createOutputDir(config: Config, g: Glyph): File = {
